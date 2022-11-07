@@ -31,14 +31,53 @@ class Timestream(Construct):
             tags=tags,
         )
 
-        TimestreamwriteTable(
+        table = TimestreamwriteTable(
             self,
             "table",
             database_name=db.database_name,
             table_name=table_name,
             retention_properties=dict(
-                magnetic_store_retention_period_in_days=1,
-                memory_store_retention_period_in_hours=12,
+                magnetic_store_retention_period_in_days=30,
+                memory_store_retention_period_in_hours=24,
             ),
             tags=tags,
         )
+
+        table_crud = IamPolicy(
+            self,
+            "table-crud",
+            name=f"{table.database_name}-{table.table_name}-CRUD",
+            policy=json.dumps(
+                {
+                    "Version": "2012-10-17",
+                    "Statement": [
+                        {
+                            "Action": [
+                                "timestream:DescribeEndpoints",
+                                "timestream:DescribeTable",
+                                "timestream:DescribeDatabase",
+                                "timestream:ListTables",
+                                "timestream:ListDatabases",
+                            ],
+                            "Resource": ["*"],
+                            "Effect": "Allow",
+                        },
+                        {
+                            "Action": [
+                                "timestream:WriteRecords",
+                                "timestream:WriteRecords",
+                                "timestream:ListMeasures",
+                                "timestream:Select",
+                            ],
+                            "Resource": [table.arn],
+                            "Effect": "Allow",
+                        },
+                    ],
+                }
+            ),
+            tags=tags,
+        )
+
+        self.crud_arn = table_crud.arn
+        self.db_name = db.database_name
+        self.table_name = table.table_name

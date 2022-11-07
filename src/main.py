@@ -2,6 +2,11 @@
 from constructs import Construct
 from cdktf import App, TerraformStack, S3Backend
 from cdktf_cdktf_provider_aws.provider import AwsProvider
+from cdktf_cdktf_provider_aws.iam_role import IamRole
+from cdktf_cdktf_provider_aws.data_aws_iam_policy_document import (
+    DataAwsIamPolicyDocument,
+)
+from cdktf_cdktf_provider_aws.lambda_function import LambdaFunction
 
 from src.dynamo import DynamoDB
 from src.api import RESTApi
@@ -24,21 +29,25 @@ class MyStack(TerraformStack):
             region="ap-southeast-2",
         )
 
-        dynamo = DynamoDB(self, "dynamo", isstream=True, tags=tags)
+        # dynamo = DynamoDB(self, "dynamo", isstream=False, tags=tags)
+
+        t = Timestream(self, "ts", "brewai_api", tags=tags)
 
         api = RESTApi(
             self,
             "api",
             endpoint_name="sensordata",
-            table_name=dynamo.table_name,
-            put_policies_arn=[dynamo.crud_arn],
-            get_policies_arn=[dynamo.crud_arn],
-            put_file_path="/root/unsw/FAIC-Project-AWS-Template/src/code/archived/table_put.zip",
-            get_file_path="/root/unsw/FAIC-Project-AWS-Template/src/code/archived/table_get.zip",
             tags=tags,
         )
 
-        Timestream(self, "ts", "test", tags=tags)
+        api.add_endpoint(
+            http="PUT",
+            policies=[t.crud_arn],
+            filename="/root/unsw/FAIC-Project-AWS-Template/src/code/archived/timestream_put.zip",
+            environement={"DATABASE_NAME": t.db_name, "TABLE_NAME": t.table_name},
+        )
+
+        api.finalize()
 
 
 app = App()

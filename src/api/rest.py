@@ -27,24 +27,24 @@ class RESTApi(Construct):
         scope: Construct,
         id: str,
         endpoint_name: str,
-        table_name: str,
-        put_policies_arn: list,
-        get_policies_arn: list,
-        put_file_path: str,
-        get_file_path: str,
         tags: dict,
     ):
 
         super().__init__(scope, id)
 
+        self.tags = tags
+        self.integration = []
+
         rest_api = ApiGatewayRestApi(
             self,
             "rest-api",
-            name=f'ProjectRestApi-{tags["project"]}-{tags["env"]}',
+            name=f'PROJECT-RestApi-{tags["project"]}-{tags["env"]}',
             api_key_source="HEADER",
             endpoint_configuration={"types": ["REGIONAL"]},
             tags=tags,
         )
+
+        self.api_id = rest_api.id
 
         resource = ApiGatewayResource(
             self,
@@ -54,7 +54,9 @@ class RESTApi(Construct):
             parent_id=rest_api.root_resource_id,
         )
 
-        assume = DataAwsIamPolicyDocument(
+        self.resource_id = resource.id
+
+        self.assume = DataAwsIamPolicyDocument(
             self,
             "assume",
             statement=[
@@ -70,17 +72,21 @@ class RESTApi(Construct):
             ],
         )
 
-        put_lambdas_role = IamRole(
+    def add_endpoint(
+        self, http: str, policies: list, filename: str, environement: dict
+    ):
+
+        role = IamRole(
             self,
-            "put_lambda_role",
-            name=f"Lambda-PUT-{tags['project']}-{tags['env']}",
-            assume_role_policy=assume.json,
+            f"lambda-role-{http}",
+            name=f"Lambda-PUT-{self.tags['project']}-{self.tags['env']}",
+            assume_role_policy=self.assume.json,
             managed_policy_arns=[
                 "arn:aws:iam::092201464628:policy/LambdaLogging",
                 "arn:aws:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole",
             ]
-            + put_policies_arn,
-            tags=tags,
+            + policies,
+            tags=self.tags,
         )
 
         """ h = hashlib.sha1()
@@ -90,173 +96,96 @@ class RESTApi(Construct):
                 chunk = file.read(1024)
                 h.update(chunk) """
 
-        put_function = LambdaFunction(
+        environement.update({"REGION": "ap-southeast-2"})
+        function = LambdaFunction(
             self,
-            "lambda_put",
-            filename=put_file_path,
-            function_name=f"PUTTable-{tags['project']}-{tags['env']}",
+            f"lambda-{http}",
+            filename=filename,
+            function_name=f"PROJECT-{http}InTable-{self.tags['project']}-{self.tags['env']}",
+            source_code_hash="1",
             # source_code_hash=h.hexdigest(),
-            role=put_lambdas_role.arn,
-            handler=f"{put_file_path.split('/')[-1].split('.')[0]}.handler",
+            role=role.arn,
+            handler=f"{filename.split('/')[-1].split('.')[0]}.handler",
             runtime="python3.9",
             memory_size=128,
             timeout=5,
-            environment={
-                "variables": {
-                    "REGION": "ap-southeast-2",
-                    "DYNAMO_TABLE": table_name,
-                }
-            },
-            tags=tags,
-        )
-
-        permission = LambdaPermission(
-            self,
-            "put_permission",
-            statement_id="AllowExecutionFromAPIGateway",
-            action="lambda:InvokeFunction",
-            function_name=put_function.function_name,
-            principal="apigateway.amazonaws.com",
-            source_arn="arn:aws:execute-api:ap-southeast-2:092201464628:*/*/*",
-        )
-
-        put_logs = CloudwatchLogGroup(
-            self,
-            "putlog",
-            name=f"/aws/lambda/{put_function.function_name}",
-            retention_in_days=30,
-            tags=tags,
-        )
-
-        put_methode = ApiGatewayMethod(
-            self,
-            "put_rest",
-            rest_api_id=rest_api.id,
-            resource_id=resource.id,
-            http_method="PUT",
-            authorization="NONE",
-            api_key_required=True,
-        )
-
-        put_integration = ApiGatewayIntegration(
-            self,
-            "put_integration",
-            rest_api_id=rest_api.id,
-            resource_id=resource.id,
-            http_method="PUT",
-            integration_http_method="POST",
-            type="AWS_PROXY",
-            uri=put_function.invoke_arn,
-        )
-
-        # GET
-        get_lambdas_role = IamRole(
-            self,
-            "get_lambda_role",
-            name=f"Lambda-GET-{tags['project']}-{tags['env']}",
-            assume_role_policy=assume.json,
-            managed_policy_arns=[
-                "arn:aws:iam::092201464628:policy/LambdaLogging",
-                "arn:aws:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole",
-            ]
-            + get_policies_arn,
-            tags=tags,
-        )
-
-        """ hg = hashlib.sha1()
-        with open(get_file_path) as file:
-            chunk = 0
-            while chunk != b"":
-                chunk = file.read(1024)
-                hg.update(chunk) """
-
-        get_function = LambdaFunction(
-            self,
-            "lambda_get",
-            filename=get_file_path,
-            function_name=f"GETTable-{tags['project']}-{tags['env']}",
-            # source_code_hash=h.hexdigest(),
-            role=get_lambdas_role.arn,
-            handler=f"{get_file_path.split('/')[-1].split('.')[0]}.handler",
-            runtime="python3.9",
-            memory_size=128,
-            timeout=5,
-            environment={
-                "variables": {
-                    "REGION": "ap-southeast-2",
-                    "DYNAMO_TABLE": table_name,
-                }
-            },
-            tags=tags,
+            environment={"variables": environement},
+            tags={"api": self.api_id, **self.tags},
         )
 
         LambdaPermission(
             self,
-            "get_permission",
+            f"permission-{http}",
             statement_id="AllowExecutionFromAPIGateway",
             action="lambda:InvokeFunction",
-            function_name=get_function.function_name,
+            function_name=function.function_name,
             principal="apigateway.amazonaws.com",
             source_arn="arn:aws:execute-api:ap-southeast-2:092201464628:*/*/*",
         )
 
         CloudwatchLogGroup(
             self,
-            "getlog",
-            name=f"/aws/lambda/{get_function.function_name}",
+            f"logs-{http}",
+            name=f"/aws/lambda/{function.function_name}",
             retention_in_days=30,
-            tags=tags,
+            tags={"api": self.api_id, **self.tags},
         )
 
-        get_methode = ApiGatewayMethod(
+        ApiGatewayMethod(
             self,
-            "get_rest",
-            rest_api_id=rest_api.id,
-            resource_id=resource.id,
-            http_method="GET",
+            f"methode-{http}",
+            rest_api_id=self.api_id,
+            resource_id=self.resource_id,
+            http_method=http,
             authorization="NONE",
             api_key_required=True,
         )
 
-        get_integration = ApiGatewayIntegration(
+        integration = ApiGatewayIntegration(
             self,
-            "get_integration",
-            rest_api_id=rest_api.id,
-            resource_id=resource.id,
-            http_method="GET",
+            f"integration-{http}",
+            rest_api_id=self.api_id,
+            resource_id=self.resource_id,
+            http_method=http,
             integration_http_method="POST",
             type="AWS_PROXY",
-            uri=get_function.invoke_arn,
+            uri=function.invoke_arn,
         )
 
+        self.integration.append(integration)
+
+    def finalize(self):
         deployement = ApiGatewayDeployment(
             self,
             "rest-deploy",
-            rest_api_id=rest_api.id,
+            rest_api_id=self.api_id,
             lifecycle={"create_before_destroy": True},
             triggers={"redeployment": "1"},
-            depends_on=[put_integration, get_integration],
+            depends_on=self.integration,
         )
 
         rest_stage = ApiGatewayStage(
             self,
             "rest_stage",
             deployment_id=deployement.id,
-            rest_api_id=rest_api.id,
+            rest_api_id=self.api_id,
             stage_name="v1",
-            tags=tags,
+            tags=self.tags,
         )
 
         plan = ApiGatewayUsagePlan(
             self,
             "plan",
-            name=f"RestApi-{tags['project']}-{tags['env']}",
-            api_stages=[{"apiId": rest_api.id, "stage": rest_stage.stage_name}],
-            tags=tags,
+            name=f"RestApi-{self.tags['project']}-{self.tags['env']}",
+            api_stages=[{"apiId": self.api_id, "stage": rest_stage.stage_name}],
+            tags=self.tags,
         )
 
         key = ApiGatewayApiKey(
-            self, "key", name=f"REST-KEY-{tags['project']}-{tags['env']}", tags=tags
+            self,
+            "key",
+            name=f"REST-KEY-{self.tags['project']}-{self.tags['env']}",
+            tags=self.tags,
         )
 
         ApiGatewayUsagePlanKey(

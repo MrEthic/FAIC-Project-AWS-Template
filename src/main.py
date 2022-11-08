@@ -11,6 +11,7 @@ from cdktf_cdktf_provider_aws.lambda_function import LambdaFunction
 from src.dynamo import DynamoDB
 from src.api import RESTApi
 from src.timestream import Timestream
+from src.scheduled_lambdas import ScheduledLambdas
 
 
 class MyStack(TerraformStack):
@@ -48,6 +49,19 @@ class MyStack(TerraformStack):
         )
 
         api.finalize()
+
+        ScheduledLambdas(
+            self,
+            "fetcher",
+            "FetchBrewAI",
+            "rate(1 minute)",
+            "/root/unsw/FAIC-Project-AWS-Template/src/code/archived/brewai_fetch_githide.zip",
+            [],
+            512,
+            20,
+            {},
+            tags,
+        )
 
 
 app = App()

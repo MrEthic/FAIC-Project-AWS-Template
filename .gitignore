@@ -12,3 +12,4 @@ notebooks/
 *.zip
 *.pem
 *.Identifier
+*githide*

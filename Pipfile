@@ -10,3 +10,9 @@ python_version = "3"
 cdktf = "~=0.13.0"
 pytest = "*"
 cdktf-cdktf-provider-aws = "*"
+
+[dev-packages]
+black = "*"
+
+[pipenv]
+allow_prereleases = true

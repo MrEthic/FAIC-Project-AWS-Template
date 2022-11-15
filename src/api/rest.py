@@ -73,13 +73,18 @@ class RESTApi(Construct):
         )
 
     def add_endpoint(
-        self, http: str, policies: list, filename: str, environement: dict
+        self,
+        http: str,
+        policies: list,
+        filename: str,
+        environement: dict,
+        timeout: int = 5,
     ):
 
         role = IamRole(
             self,
             f"lambda-role-{http}",
-            name=f"Lambda-PUT-{self.tags['project']}-{self.tags['env']}",
+            name=f"Lambda-{http}-{self.tags['project']}-{self.tags['env']}",
             assume_role_policy=self.assume.json,
             managed_policy_arns=[
                 "arn:aws:iam::092201464628:policy/LambdaLogging",
@@ -101,14 +106,14 @@ class RESTApi(Construct):
             self,
             f"lambda-{http}",
             filename=filename,
-            function_name=f"PROJECT-{http}InTable-{self.tags['project']}-{self.tags['env']}",
+            function_name=f"{self.tags['project']}-{http}InTable-{self.tags['env']}",
             source_code_hash="1",
             # source_code_hash=h.hexdigest(),
             role=role.arn,
             handler=f"{filename.split('/')[-1].split('.')[0]}.handler",
             runtime="python3.9",
             memory_size=128,
-            timeout=5,
+            timeout=timeout,
             environment={"variables": environement},
             tags={"api": self.api_id, **self.tags},
         )
@@ -160,6 +165,7 @@ class RESTApi(Construct):
             "rest-deploy",
             rest_api_id=self.api_id,
             lifecycle={"create_before_destroy": True},
+            description="Deploy again",
             triggers={"redeployment": "1"},
             depends_on=self.integration,
         )

@@ -48,6 +48,14 @@ class MyStack(TerraformStack):
             environement={"DATABASE_NAME": t.db_name, "TABLE_NAME": t.table_name},
         )
 
+        api.add_endpoint(
+            http="GET",
+            policies=[t.crud_arn],
+            filename="/root/unsw/FAIC-Project-AWS-Template/src/code/archived/timestream_get.zip",
+            environement={"DATABASE_NAME": t.db_name, "TABLE_NAME": t.table_name},
+            timeout=20,
+        )
+
         api.finalize()
 
         ScheduledLambdas(

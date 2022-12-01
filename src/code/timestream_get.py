@@ -49,7 +49,7 @@ def build_query(time_filter: str, measures: list, device_ids: list):
     SELECT 
         time,
         {
-            "".join([f"MAX(if(measure_name = '{m}', measure_value::double)) AS {m}," for m in measures])
+            "".join(["MAX(if(measure_name = '{mn}',".format(mn=m) + ' measure_value::double)) AS "{mn}",'.format(mn=m) for m in measures])
         }
         deviceId
     FROM "{DATABASE_NAME}"."{TABLE_NAME}"

@@ -39,8 +39,17 @@ DynamoDB: `src.dynamo` you will find a preconfigured DynamoDB table for your pro
 
 DynamoWebsocket: `src.streaming` you can set `isstrem=True` when creating the DynamoDB object table. A websocket API that stream DynamoDB insertion will be created.
 
+### Timestream
+Timestream: `src.timestream` preconfigured timestream table for timestaries
+
 ### RESTApi
 RESTApi: `src.api` create a rest API for your project table. The sample codes are made to work with dynamoDB, you must update them dependings on your needs.
+> Usage: create the api then call api.add_endpoint to add lambda proxy endpoints. Call api.finalize to finalize the api (stage, keys, etc.)
+
+### Lambdas
+Contains a set a configurable lambdas:
+- ScheduledLambdas: Lambda that runs according to a schudle exeption (every minutes, week, crontask, etc.)
+- InvokableLambdas: Lambda that can be executed from another service
 
 ## Modifying the stack
 

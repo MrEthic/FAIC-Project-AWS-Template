@@ -54,7 +54,16 @@ class RESTApi(Construct):
             parent_id=rest_api.root_resource_id,
         )
 
-        self.resource_id = resource.id
+        pred_resource = ApiGatewayResource(
+            self,
+            "resource-pred",
+            path_part="predictions",
+            rest_api_id=rest_api.id,
+            parent_id=rest_api.root_resource_id,
+        )
+
+        self.data_resource_id = resource.id
+        self.pred_resource_id = pred_resource.id
 
         self.assume = DataAwsIamPolicyDocument(
             self,
@@ -79,12 +88,14 @@ class RESTApi(Construct):
         filename: str,
         environement: dict,
         timeout: int = 5,
+        on_prediction: bool = False,
     ):
 
+        suffix = f"{http}{'Prediction' if on_prediction else 'Data'}"
         role = IamRole(
             self,
-            f"lambda-role-{http}",
-            name=f"Lambda-{http}-{self.tags['project']}-{self.tags['env']}",
+            f"lambda-role-{suffix}",
+            name=f"Lambda-{suffix}-{self.tags['project']}-{self.tags['env']}",
             assume_role_policy=self.assume.json,
             managed_policy_arns=[
                 "arn:aws:iam::092201464628:policy/LambdaLogging",
@@ -104,9 +115,9 @@ class RESTApi(Construct):
         environement.update({"REGION": "ap-southeast-2"})
         function = LambdaFunction(
             self,
-            f"lambda-{http}",
+            f"lambda-{suffix}",
             filename=filename,
-            function_name=f"{self.tags['project']}-{http}InTable-{self.tags['env']}",
+            function_name=f"{self.tags['project']}-{suffix}InTable-{self.tags['env']}",
             source_code_hash="1",
             # source_code_hash=h.hexdigest(),
             role=role.arn,
@@ -118,9 +129,17 @@ class RESTApi(Construct):
             tags={"api": self.api_id, **self.tags},
         )
 
+        CloudwatchLogGroup(
+            self,
+            f"logs-{suffix}",
+            name=f"/aws/lambda/{function.function_name}",
+            retention_in_days=30,
+            tags={"api": self.api_id, **self.tags},
+        )
+
         LambdaPermission(
             self,
-            f"permission-{http}",
+            f"permission-{suffix}",
             statement_id="AllowExecutionFromAPIGateway",
             action="lambda:InvokeFunction",
             function_name=function.function_name,
@@ -128,19 +147,13 @@ class RESTApi(Construct):
             source_arn="arn:aws:execute-api:ap-southeast-2:092201464628:*/*/*",
         )
 
-        CloudwatchLogGroup(
-            self,
-            f"logs-{http}",
-            name=f"/aws/lambda/{function.function_name}",
-            retention_in_days=30,
-            tags={"api": self.api_id, **self.tags},
-        )
+        resource_id = self.pred_resource_id if on_prediction else self.data_resource_id
 
         ApiGatewayMethod(
             self,
-            f"methode-{http}",
+            f"methode-{suffix}",
             rest_api_id=self.api_id,
-            resource_id=self.resource_id,
+            resource_id=resource_id,
             http_method=http,
             authorization="NONE",
             api_key_required=True,
@@ -148,9 +161,9 @@ class RESTApi(Construct):
 
         integration = ApiGatewayIntegration(
             self,
-            f"integration-{http}",
+            f"integration-{suffix}",
             rest_api_id=self.api_id,
-            resource_id=self.resource_id,
+            resource_id=resource_id,
             http_method=http,
             integration_http_method="POST",
             type="AWS_PROXY",
@@ -158,6 +171,7 @@ class RESTApi(Construct):
         )
 
         self.integration.append(integration)
+        return function.arn
 
     def finalize(self):
         deployement = ApiGatewayDeployment(
@@ -166,7 +180,7 @@ class RESTApi(Construct):
             rest_api_id=self.api_id,
             lifecycle={"create_before_destroy": True},
             description="Deploy again",
-            triggers={"redeployment": "1"},
+            triggers={"redeployment": "0"},
             depends_on=self.integration,
         )
 
@@ -201,3 +215,4 @@ class RESTApi(Construct):
         TerraformOutput(self, "rest_api_url", value=rest_stage.invoke_url)
         TerraformOutput(self, "rest_api_key_name", value=key.name)
         TerraformOutput(self, "rest_api_key_value", value=key.value, sensitive=True)
+        self.api_key_value = key.value

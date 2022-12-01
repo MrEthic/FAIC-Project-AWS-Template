@@ -12,6 +12,7 @@ LOGGER.setLevel(logging.INFO)
 REGION = os.environ.get("REGION", "ap-southeast-2")
 session = boto3.Session(region_name=REGION)
 timestream_client = session.client("timestream-write")
+lambda_client = session.client("lambda")
 
 DATABASE_NAME = os.environ["DATABASE_NAME"]
 TABLE_NAME = os.environ["TABLE_NAME"]
@@ -47,7 +48,7 @@ def handler(event, context):
                 },
             }
 
-        ts = str(int(datetime.timestamp(date)))
+        ts = str(int(datetime.timestamp(date.replace(second=0))))
 
         dimensions = [{"Name": "deviceId", "Value": payload["devid"]}]
 
@@ -76,6 +77,14 @@ def handler(event, context):
             CommonAttributes=common_attributes,
         )
         LOGGER.info(f"Item inserted")
+
+        lambda_client.invoke(
+            FunctionName="brewai-sensor-iaq-invokable-make-prediction-dev",
+            InvocationType="Event",
+            LogType="None",
+            Payload=json.dumps({"timestamp": ts, "deviceId": payload["devid"]}),
+        )
+
         return {
             "statusCode": 201,
             "body": "successfully created item!",

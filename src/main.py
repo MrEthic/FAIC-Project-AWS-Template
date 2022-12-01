@@ -1,17 +1,25 @@
 #!/usr/bin/env python
+import json
+import os
+from dotenv import load_dotenv
 from constructs import Construct
 from cdktf import App, TerraformStack, S3Backend
 from cdktf_cdktf_provider_aws.provider import AwsProvider
+from cdktf_cdktf_provider_aws.iam_policy import IamPolicy
 from cdktf_cdktf_provider_aws.iam_role import IamRole
 from cdktf_cdktf_provider_aws.data_aws_iam_policy_document import (
     DataAwsIamPolicyDocument,
 )
 from cdktf_cdktf_provider_aws.lambda_function import LambdaFunction
+from cdktf_cdktf_provider_aws.lambda_permission import LambdaPermission
+from cdktf_cdktf_provider_aws.cloudwatch_log_group import CloudwatchLogGroup
 
 from src.dynamo import DynamoDB
 from src.api import RESTApi
 from src.timestream import Timestream
-from src.scheduled_lambdas import ScheduledLambdas
+from src.lambdas import ScheduledLambdas, InvokableLambdas
+
+load_dotenv()
 
 
 class MyStack(TerraformStack):
@@ -20,7 +28,7 @@ class MyStack(TerraformStack):
 
         tags = {"env": env, "project": ns, "project_owner": project_owner}
 
-        AwsProvider(self, "AWS", region="ap-southeast-2")
+        AwsProvider(self, "AWS", region="ap-southeast-2", profile="unsw")
 
         # Backend for storing state
         S3Backend(
@@ -41,9 +49,30 @@ class MyStack(TerraformStack):
             tags=tags,
         )
 
-        api.add_endpoint(
+        policy = IamPolicy(
+            self,
+            "make-pred",
+            name=f"Lambda-{tags['project']}-{tags['env']}-Invoke",
+            policy=json.dumps(
+                {
+                    "Version": "2012-10-17",
+                    "Statement": [
+                        {
+                            "Action": [
+                                "lambda:InvokeFunction",
+                            ],
+                            "Resource": ["*"],
+                            "Effect": "Allow",
+                        },
+                    ],
+                }
+            ),
+            tags=tags,
+        )
+
+        put_arn = api.add_endpoint(
             http="PUT",
-            policies=[t.crud_arn],
+            policies=[t.crud_arn, policy.arn],
             filename="/root/unsw/FAIC-Project-AWS-Template/src/code/archived/timestream_put.zip",
             environement={"DATABASE_NAME": t.db_name, "TABLE_NAME": t.table_name},
         )
@@ -61,14 +90,37 @@ class MyStack(TerraformStack):
         ScheduledLambdas(
             self,
             "fetcher",
-            "FetchBrewAI",
-            "rate(1 minute)",
-            "/root/unsw/FAIC-Project-AWS-Template/src/code/archived/brewai_fetch_githide.zip",
-            [],
-            512,
-            20,
-            {},
-            tags,
+            name="fetch-from-brewai",
+            schedule_expression="rate(1 minute)",
+            filename="/root/unsw/FAIC-Project-AWS-Template/src/code/archived/brewai_fetch.zip",
+            policies=[],
+            memory_size=512,
+            timeout=20,
+            environement={
+                "BREWAI_API_KEY": os.getenv("BREWAI_API_KEY"),
+                "PROJECT_API_KEY": api.api_key_value,
+            },
+            tags=tags,
+        )
+
+        InvokableLambdas(
+            self,
+            "make-prediction",
+            name="make-prediction",
+            filename="/root/unsw/FAIC-Project-AWS-Template/src/code/archived/make_prediction.zip",
+            policies=[t.crud_arn],
+            invoke_principal="lambda.amazonaws.com",
+            invoke_from_arn=put_arn,
+            memory_size=512,
+            timeout=20,
+            environement={
+                "DATABASE_NAME": t.db_name,
+                "TABLE_NAME": t.table_name,
+                "MODEL_ENDPOINT": "https://dbc-4e63b9e5-9d6d.cloud.databricks.com/model/iaq_forecast_simple_lstm/Staging/invocations",
+                "DATABRICKS_KEY": os.getenv("DATABRICKS_KEY"),
+                "REGION": "ap-southeast-2",
+            },
+            tags=tags,
         )
 
 

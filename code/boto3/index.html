@@ -385,9 +385,115 @@
         
       
       
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          Boto3
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
       <a href="./" class="md-nav__link md-nav__link--active">
         Boto3
       </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#getting-started" class="md-nav__link">
+    Getting started
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#session-and-credentials" class="md-nav__link">
+    Session and credentials
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#boto3-in-lambdas" class="md-nav__link">
+    Boto3 in Lambdas
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#boto3-in-local" class="md-nav__link">
+    Boto3 in local
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#clients" class="md-nav__link">
+    Clients
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#dynamodb-examples" class="md-nav__link">
+    DynamoDB Examples
+  </a>
+  
+    <nav class="md-nav" aria-label="DynamoDB Examples">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#put-item" class="md-nav__link">
+    Put item
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#query-items" class="md-nav__link">
+    Query items
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#timestream" class="md-nav__link">
+    Timestream
+  </a>
+  
+    <nav class="md-nav" aria-label="Timestream">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#query-a-table" class="md-nav__link">
+    Query a table
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
       
     </li>
   
@@ -420,6 +526,96 @@
     
   
   
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#getting-started" class="md-nav__link">
+    Getting started
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#session-and-credentials" class="md-nav__link">
+    Session and credentials
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#boto3-in-lambdas" class="md-nav__link">
+    Boto3 in Lambdas
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#boto3-in-local" class="md-nav__link">
+    Boto3 in local
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#clients" class="md-nav__link">
+    Clients
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#dynamodb-examples" class="md-nav__link">
+    DynamoDB Examples
+  </a>
+  
+    <nav class="md-nav" aria-label="DynamoDB Examples">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#put-item" class="md-nav__link">
+    Put item
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#query-items" class="md-nav__link">
+    Query items
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#timestream" class="md-nav__link">
+    Timestream
+  </a>
+  
+    <nav class="md-nav" aria-label="Timestream">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#query-a-table" class="md-nav__link">
+    Query a table
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
 </nav>
                   </div>
                 </div>
@@ -435,11 +631,11 @@
 
 <h1 id="boto3">Boto3<a class="headerlink" href="#boto3" title="Permanent link">#</a></h1>
 <p>Boto3 is used to interact with resources on aws. It can be used to query data from databases, read logs, and even create resources. Boto3 is a wrapper that uses aws REST API.</p>
-<h1 id="getting-started">Getting started<a class="headerlink" href="#getting-started" title="Permanent link">#</a></h1>
+<h2 id="getting-started">Getting started<a class="headerlink" href="#getting-started" title="Permanent link">#</a></h2>
 <p>First, you will need to install boto3 in your environement. Note that boto3 is natively available on lambda runtime.
 On your local machine, run <code>pip install boto3</code> or <code>conda install boto3</code>.</p>
 <p>Boto3 is very well documented online, simply search "boto3 <em>what you wan't to do</em>" on google and you will find documentation.</p>
-<h1 id="session-and-credentials">Session and credentials<a class="headerlink" href="#session-and-credentials" title="Permanent link">#</a></h1>
+<h2 id="session-and-credentials">Session and credentials<a class="headerlink" href="#session-and-credentials" title="Permanent link">#</a></h2>
 <p>A boto3 Session is used to authenticate you. You can create a session using <code>boto3.Session()</code>. Boto3 will use default configuration to open the Session. It is a good practice to explicitly specify the region you want to intrect with in the Session: <code>boto3.Session(region_name='ap-southeast-3')</code>.</p>
 <h2 id="boto3-in-lambdas">Boto3 in Lambdas<a class="headerlink" href="#boto3-in-lambdas" title="Permanent link">#</a></h2>
 <p>Boto3 will inherite the lambda permission.</p>
@@ -454,7 +650,7 @@ On your local machine, run <code>pip install boto3</code> or <code>conda install
 </code></pre>
 <p><strong><em>Extract from boto3 docs:</em></strong></p>
 <p>ACCESS_KEY, SECRET_KEY, and SESSION_TOKEN are variables that contain your access key, secret key, and optional session token. Note that the examples above do not have hard coded credentials. <strong>We do not recommend hard coding credentials in your source code</strong>.</p>
-<h1 id="clients">Clients<a class="headerlink" href="#clients" title="Permanent link">#</a></h1>
+<h2 id="clients">Clients<a class="headerlink" href="#clients" title="Permanent link">#</a></h2>
 <p>Boto3 clients are used to interact with specific AWS API, their is a lot of different client. To create one simply use:</p>
 <pre><code class="language-python">session = boto3.Session(region_name='ap-southeast-3')
 
@@ -463,9 +659,9 @@ timestreamwrite_client = session.client(&quot;timestream-write&quot;)
 lambda_client = session.client(&quot;lambda&quot;)
 ...
 </code></pre>
-<h1 id="dynamodb-examples">DynamoDB Examples<a class="headerlink" href="#dynamodb-examples" title="Permanent link">#</a></h1>
+<h2 id="dynamodb-examples">DynamoDB Examples<a class="headerlink" href="#dynamodb-examples" title="Permanent link">#</a></h2>
 <p>Assuming you have a working boto3 client.</p>
-<h2 id="put-item">Put item<a class="headerlink" href="#put-item" title="Permanent link">#</a></h2>
+<h3 id="put-item">Put item<a class="headerlink" href="#put-item" title="Permanent link">#</a></h3>
 <p>Insert an item in a dynamo table.</p>
 <pre><code class="language-python">import boto3
 
@@ -481,7 +677,7 @@ dynamodb_response = dynamodb_client.put_item(
     },
 )
 </code></pre>
-<h2 id="query-items">Query items<a class="headerlink" href="#query-items" title="Permanent link">#</a></h2>
+<h3 id="query-items">Query items<a class="headerlink" href="#query-items" title="Permanent link">#</a></h3>
 <p>Query (different from scaning) items in dynamodb. You can use boto3 resource to abstract some of the parsing logic.</p>
 <pre><code class="language-python">import boto3
 
@@ -505,9 +701,9 @@ class DecimalEncoder(json.JSONEncoder):
 
 query_result = json.dumps(dynamodb_response, cls=DecimalEncoder)
 </code></pre>
-<h1 id="timestream">Timestream<a class="headerlink" href="#timestream" title="Permanent link">#</a></h1>
+<h2 id="timestream">Timestream<a class="headerlink" href="#timestream" title="Permanent link">#</a></h2>
 <p>There is two timestream client, <code>timestream-write</code> and <code>timestream-query</code>.</p>
-<h2 id="query-a-table">Query a table<a class="headerlink" href="#query-a-table" title="Permanent link">#</a></h2>
+<h3 id="query-a-table">Query a table<a class="headerlink" href="#query-a-table" title="Permanent link">#</a></h3>
 <p>Execute a SQL query and parse the results.</p>
 <pre><code class="language-python">import boto3
 import pandas

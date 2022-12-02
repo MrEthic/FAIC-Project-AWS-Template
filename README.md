@@ -1,5 +1,7 @@
 # Fintech Artificial Inteligence Consortium LAB AWS Project Template
 
+Complete documentation available on [github pages](https://mrethic.github.io/FAIC-Project-AWS-Template/)
+
 The Fintech Artificial Inteligence Consortium LAB is an UNSW vistual lab.
 
 This is a template for starting new project on the cloud.
@@ -32,7 +34,7 @@ Please, learn how to use terraform and how AWS works before doing anything...
 - `make output`: write outputs to outputs.json
 - `make destroy`: destroy the stack (bad idea)
 
-## Available modules
+## Modules
 
 ### DynamoDB
 DynamoDB: `src.dynamo` you will find a preconfigured DynamoDB table for your project.

@@ -1,0 +1,805 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.4.2, mkdocs-material-8.5.10">
+    
+    
+      
+        <title>Boto3 - Project Template Documentation</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.975780f9.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.2505c338.min.css">
+        
+      
+      
+
+    
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="None" data-md-color-accent="None">
+  
+    
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#boto3" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="Project Template Documentation" class="md-header__button md-logo" aria-label="Project Template Documentation" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Project Template Documentation
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Boto3
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="Project Template Documentation" class="md-nav__button md-logo" aria-label="Project Template Documentation" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    Project Template Documentation
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        Home
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2" type="checkbox" id="__nav_2" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_2">
+          Architectures
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Architectures" data-md-level="1">
+        <label class="md-nav__title" for="__nav_2">
+          <span class="md-nav__icon md-icon"></span>
+          Architectures
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../archi/api/" class="md-nav__link">
+        API Gateways
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_3" type="checkbox" id="__nav_3" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_3">
+          Terraform Modules
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Terraform Modules" data-md-level="1">
+        <label class="md-nav__title" for="__nav_3">
+          <span class="md-nav__icon md-icon"></span>
+          Terraform Modules
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../modules/api/" class="md-nav__link">
+        API Gateway
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../modules/dynamo/" class="md-nav__link">
+        Dynamo Table
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../modules/timestream/" class="md-nav__link">
+        Timestream
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../modules/lambdas/" class="md-nav__link">
+        Lambdas
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+    
+  
+  
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_4" type="checkbox" id="__nav_4" checked>
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_4">
+          Code Example
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Code Example" data-md-level="1">
+        <label class="md-nav__title" for="__nav_4">
+          <span class="md-nav__icon md-icon"></span>
+          Code Example
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lambdas/" class="md-nav__link">
+        Lambda Codes
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+    
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          Boto3
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        Boto3
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#getting-started" class="md-nav__link">
+    Getting started
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#session-and-credentials" class="md-nav__link">
+    Session and credentials
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#boto3-in-lambdas" class="md-nav__link">
+    Boto3 in Lambdas
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#boto3-in-local" class="md-nav__link">
+    Boto3 in local
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#clients" class="md-nav__link">
+    Clients
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#dynamodb-examples" class="md-nav__link">
+    DynamoDB Examples
+  </a>
+  
+    <nav class="md-nav" aria-label="DynamoDB Examples">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#put-item" class="md-nav__link">
+    Put item
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#query-items" class="md-nav__link">
+    Query items
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#timestream" class="md-nav__link">
+    Timestream
+  </a>
+  
+    <nav class="md-nav" aria-label="Timestream">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#query-a-table" class="md-nav__link">
+    Query a table
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#getting-started" class="md-nav__link">
+    Getting started
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#session-and-credentials" class="md-nav__link">
+    Session and credentials
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#boto3-in-lambdas" class="md-nav__link">
+    Boto3 in Lambdas
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#boto3-in-local" class="md-nav__link">
+    Boto3 in local
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#clients" class="md-nav__link">
+    Clients
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#dynamodb-examples" class="md-nav__link">
+    DynamoDB Examples
+  </a>
+  
+    <nav class="md-nav" aria-label="DynamoDB Examples">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#put-item" class="md-nav__link">
+    Put item
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#query-items" class="md-nav__link">
+    Query items
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#timestream" class="md-nav__link">
+    Timestream
+  </a>
+  
+    <nav class="md-nav" aria-label="Timestream">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#query-a-table" class="md-nav__link">
+    Query a table
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+<h1 id="boto3">Boto3<a class="headerlink" href="#boto3" title="Permanent link">#</a></h1>
+<p>Boto3 is used to interact with resources on aws. It can be used to query data from databases, read logs, and even create resources. Boto3 is a wrapper that uses aws REST API.</p>
+<h2 id="getting-started">Getting started<a class="headerlink" href="#getting-started" title="Permanent link">#</a></h2>
+<p>First, you will need to install boto3 in your environement. Note that boto3 is natively available on lambda runtime.
+On your local machine, run <code>pip install boto3</code> or <code>conda install boto3</code>.</p>
+<p>Boto3 is very well documented online, simply search "boto3 <em>what you wan't to do</em>" on google and you will find documentation.</p>
+<h2 id="session-and-credentials">Session and credentials<a class="headerlink" href="#session-and-credentials" title="Permanent link">#</a></h2>
+<p>A boto3 Session is used to authenticate you. You can create a session using <code>boto3.Session()</code>. Boto3 will use default configuration to open the Session. It is a good practice to explicitly specify the region you want to intrect with in the Session: <code>boto3.Session(region_name='ap-southeast-3')</code>.</p>
+<h2 id="boto3-in-lambdas">Boto3 in Lambdas<a class="headerlink" href="#boto3-in-lambdas" title="Permanent link">#</a></h2>
+<p>Boto3 will inherite the lambda permission.</p>
+<h2 id="boto3-in-local">Boto3 in local<a class="headerlink" href="#boto3-in-local" title="Permanent link">#</a></h2>
+<p>Refere to the <a href="https://boto3.amazonaws.com/v1/documentation/api/latest/guide/credentials.html">boto3 documentation</a> for detailed explanation on boto3 credentials.</p>
+<p>The best practice would be to install the <a href="https://docs.aws.amazon.com/cli/latest/userguide/getting-started-install.html">aws cli</a> on you local machine and then configure profiles, access key and secret key id on the <code>~/./aws directory</code>.</p>
+<p>However, you can still specify your AWS access when opening a session:</p>
+<pre><code class="language-python">session = session.Session(
+    aws_access_key_id=ACCESS_KEY,
+    aws_secret_access_key=SECRET_KEY,
+)
+</code></pre>
+<p><strong><em>Extract from boto3 docs:</em></strong></p>
+<p>ACCESS_KEY, SECRET_KEY, and SESSION_TOKEN are variables that contain your access key, secret key, and optional session token. Note that the examples above do not have hard coded credentials. <strong>We do not recommend hard coding credentials in your source code</strong>.</p>
+<h2 id="clients">Clients<a class="headerlink" href="#clients" title="Permanent link">#</a></h2>
+<p>Boto3 clients are used to interact with specific AWS API, their is a lot of different client. To create one simply use:</p>
+<pre><code class="language-python">session = boto3.Session(region_name='ap-southeast-3')
+
+dynamodb_client = session.client(&quot;dynamodb&quot;)
+timestreamwrite_client = session.client(&quot;timestream-write&quot;)
+lambda_client = session.client(&quot;lambda&quot;)
+...
+</code></pre>
+<h2 id="dynamodb-examples">DynamoDB Examples<a class="headerlink" href="#dynamodb-examples" title="Permanent link">#</a></h2>
+<p>Assuming you have a working boto3 client.</p>
+<h3 id="put-item">Put item<a class="headerlink" href="#put-item" title="Permanent link">#</a></h3>
+<p>Insert an item in a dynamo table.</p>
+<pre><code class="language-python">import boto3
+
+session = boto3.Session(region_name='ap-southeast-3')
+dynamodb_client = session.client(&quot;dynamodb&quot;)
+
+dynamodb_response = dynamodb_client.put_item(
+    TableName=&quot;TABLE_NAME&quot;,
+    Item={
+        &quot;Key1&quot;: {&quot;S&quot;: &quot;Hello&quot;},
+        &quot;Key2&quot;: {&quot;N&quot;: &quot;2.154864584&quot;},
+        &quot;Key3&quot;: {&quot;L&quot;: [&quot;1&quot;, &quot;2&quot;, &quot;3&quot;]},
+    },
+)
+</code></pre>
+<h3 id="query-items">Query items<a class="headerlink" href="#query-items" title="Permanent link">#</a></h3>
+<p>Query (different from scaning) items in dynamodb. You can use boto3 resource to abstract some of the parsing logic.</p>
+<pre><code class="language-python">import boto3
+
+dynamodb = boto3.resource(&quot;dynamodb&quot;, region_name='ap-southeast-3')
+table = dynamodb.Table(&quot;TABLE_NAME&quot;)
+
+dynamodb_response = table.query(
+    KeyConditionExpression=Key(&quot;Key&quot;).eq(&quot;somethin&quot;)
+    &amp; Key(&quot;Timestamp&quot;).between(1, 60),
+)
+</code></pre>
+<p><strong>Boto3 dom't use float but Decimals.</strong> You may wan't to build a Encoder for this.</p>
+<pre><code class="language-python">import json
+from decimal import Decimal
+
+class DecimalEncoder(json.JSONEncoder):
+    def default(self, obj):
+        if isinstance(obj, Decimal):
+            return str(obj)
+        return json.JSONEncoder.default(self, obj)
+
+query_result = json.dumps(dynamodb_response, cls=DecimalEncoder)
+</code></pre>
+<h2 id="timestream">Timestream<a class="headerlink" href="#timestream" title="Permanent link">#</a></h2>
+<p>There is two timestream client, <code>timestream-write</code> and <code>timestream-query</code>.</p>
+<h3 id="query-a-table">Query a table<a class="headerlink" href="#query-a-table" title="Permanent link">#</a></h3>
+<p>Execute a SQL query and parse the results.</p>
+<pre><code class="language-python">import boto3
+import pandas
+
+session = boto3.Session(region_name=&quot;ap-southeast-2&quot;)
+ts_query = session.client(&quot;timestream-query&quot;)
+
+QUERY_1 = &quot;&quot;&quot;
+SELECT 
+  time,
+  deviceId,
+  measure_value::double AS temperature
+FROM &quot;ProjectTable-brewai-sensor-iaq-dev&quot;.&quot;brewai_api&quot;
+WHERE
+  measure_name='temperature'
+  AND time between ago(1h) and now()
+ORDER BY time DESC
+&quot;&quot;&quot;
+
+response = ts_query.query(
+    QueryString=QUERY_1
+)
+
+columns_name = [col['Name'] for col in response[&quot;ColumnInfo&quot;]]
+columns_type = [col[&quot;Type&quot;]['ScalarType'] for col in response[&quot;ColumnInfo&quot;]]
+
+rows = [row[&quot;Data&quot;] for row in response[&quot;Rows&quot;]]
+rows_list = [[next(iter(el.values())) for el in row] for row in rows]
+
+df = pd.DataFrame(rows_list, columns=columns_name)
+df.time = df.time.dt.tz_localize('UTC').dt.tz_convert('Australia/ACT')
+</code></pre>
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+    <nav class="md-footer__inner md-grid" aria-label="Footer" >
+      
+        
+        <a href="../lambdas/" class="md-footer__link md-footer__link--prev" aria-label="Previous: Lambda Codes" rel="prev">
+          <div class="md-footer__button md-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+          </div>
+          <div class="md-footer__title">
+            <div class="md-ellipsis">
+              <span class="md-footer__direction">
+                Previous
+              </span>
+              Lambda Codes
+            </div>
+          </div>
+        </a>
+      
+      
+    </nav>
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    <script id="__config" type="application/json">{"base": "../..", "features": [], "search": "../../assets/javascripts/workers/search.16e2a7d4.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version.title": "Select version"}}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.5a2dcb6a.min.js"></script>
+      
+    
+    
+  </body>
+</html>

@@ -1,0 +1,23 @@
+site_name: Project Template Documentation
+
+markdown_extensions:
+    - toc:
+        permalink: "#"
+        baselevel: 1
+
+nav:
+    - Home: 'index.md'
+    - Architectures:
+      - 'API Gateways': 'archi/api.md'
+    - 'Terraform Modules':
+      - 'API Gateway': 'modules/api.md'
+      - 'Dynamo Table': 'modules/dynamo.md'
+      - Timestream: 'modules/timestream.md'
+      - Lambdas: 'modules/lambdas.md'
+    - 'Code Example':
+      - 'Lambda Codes': code/lambdas.md
+      - Boto3: code/boto3.md
+
+theme:
+  name: material
+    

@@ -111,5 +111,5 @@ class DynamoDB(Construct):
                 tags=tags,
             )
 
-            self.table_name = table.name
-            self.crud_arn = table_crud.arn
+        self.table_name = table.name
+        self.crud_arn = table_crud.arn

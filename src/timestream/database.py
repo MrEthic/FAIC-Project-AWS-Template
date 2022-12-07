@@ -19,33 +19,39 @@ class Timestream(Construct):
         self,
         scope: Construct,
         id: str,
-        table_name: str,
         tags: dict,
     ):
         super().__init__(scope, id)
 
+        self.tags = tags
+
         db = TimestreamwriteDatabase(
             self,
             "db",
-            database_name=f'ProjectTable-{tags["project"]}-{tags["env"]}',
+            database_name=f'{tags["project"]}-database-{tags["env"]}',
             tags=tags,
         )
 
+        self.db_name = db.database_name
+
+    def add_table(
+        self, table_name: str, magnetic_days: int = 30, memory_hours: int = 24
+    ):
         table = TimestreamwriteTable(
             self,
-            "table",
-            database_name=db.database_name,
+            table_name,
+            database_name=self.db_name,
             table_name=table_name,
             retention_properties=dict(
-                magnetic_store_retention_period_in_days=30,
-                memory_store_retention_period_in_hours=24,
+                magnetic_store_retention_period_in_days=magnetic_days,
+                memory_store_retention_period_in_hours=memory_hours,
             ),
-            tags=tags,
+            tags=self.tags,
         )
 
         table_crud = IamPolicy(
             self,
-            "table-crud",
+            f"{table_name}-crud",
             name=f"{table.database_name}-{table.table_name}-CRUD",
             policy=json.dumps(
                 {
@@ -75,9 +81,7 @@ class Timestream(Construct):
                     ],
                 }
             ),
-            tags=tags,
+            tags=self.tags,
         )
 
-        self.crud_arn = table_crud.arn
-        self.db_name = db.database_name
-        self.table_name = table.table_name
+        return table.table_name, table_crud.arn

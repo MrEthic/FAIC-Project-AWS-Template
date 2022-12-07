@@ -62,8 +62,17 @@ class RESTApi(Construct):
             parent_id=rest_api.root_resource_id,
         )
 
+        sensor_resource = ApiGatewayResource(
+            self,
+            "resource-sensor",
+            path_part="sensors",
+            rest_api_id=rest_api.id,
+            parent_id=resource.id,
+        )
+
         self.data_resource_id = resource.id
         self.pred_resource_id = pred_resource.id
+        self.sensor_resource_id = sensor_resource.id
 
         self.assume = DataAwsIamPolicyDocument(
             self,
@@ -88,10 +97,10 @@ class RESTApi(Construct):
         filename: str,
         environement: dict,
         timeout: int = 5,
-        on_prediction: bool = False,
+        resource: str = "data",
     ):
 
-        suffix = f"{http}{'Prediction' if on_prediction else 'Data'}"
+        suffix = f"{http.lower()}-{resource}"
         role = IamRole(
             self,
             f"lambda-role-{suffix}",
@@ -117,7 +126,7 @@ class RESTApi(Construct):
             self,
             f"lambda-{suffix}",
             filename=filename,
-            function_name=f"{self.tags['project']}-{suffix}InTable-{self.tags['env']}",
+            function_name=f"{self.tags['project']}-{suffix}-{self.tags['env']}",
             source_code_hash="1",
             # source_code_hash=h.hexdigest(),
             role=role.arn,
@@ -147,7 +156,12 @@ class RESTApi(Construct):
             source_arn="arn:aws:execute-api:ap-southeast-2:092201464628:*/*/*",
         )
 
-        resource_id = self.pred_resource_id if on_prediction else self.data_resource_id
+        if resource == "data":
+            resource_id = self.data_resource_id
+        elif resource == "pred":
+            resource_id = self.pred_resource_id
+        elif resource == "sensor":
+            resource_id = self.sensor_resource_id
 
         ApiGatewayMethod(
             self,
@@ -180,7 +194,7 @@ class RESTApi(Construct):
             rest_api_id=self.api_id,
             lifecycle={"create_before_destroy": True},
             description="Deploy again",
-            triggers={"redeployment": "0"},
+            triggers={"redeployment": "1"},
             depends_on=self.integration,
         )
 

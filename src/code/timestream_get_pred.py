@@ -34,7 +34,7 @@ def build_query_one_measure(from_ts: int, to_ts: int, device: str, measure: str)
 
 
 def build_query(from_ts: int, to_ts: int, device: str):
-    measures = ["temperature", "humidity", "pressure", "iaq", "co2", "voc"]
+    measures = [f"iaq~{i}" for i in range(1, 16)]
     QUERY = f"""
     SELECT 
         time,
@@ -131,7 +131,7 @@ def handler(event, context):
                     "Records": rows_list,
                     "Metadata": {
                         "SourceName": "BrewAI",
-                        "SourceType": "SensorsData",
+                        "SourceType": "IAQPredictions",
                         "SourceFormat": "Timeserie",
                         "ColumnName": columns_name,
                         "ColumnType": [type_map.get(t) for t in columns_type],

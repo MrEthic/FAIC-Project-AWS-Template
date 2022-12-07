@@ -16,7 +16,8 @@ timestream_write = session.client("timestream-write")
 timestream_query = session.client("timestream-query")
 
 DATABASE_NAME = os.environ["DATABASE_NAME"]
-TABLE_NAME = os.environ["TABLE_NAME"]
+PREDICTIONS_TABLE_NAME = os.environ["PREDICTIONS_TABLE"]
+SENSOR_TABLE_NAME = os.environ["SENSOR_TABLE"]
 MODEL_ENDPOINT = os.environ["MODEL_ENDPOINT"]
 DATABRICKS_KEY = os.getenv("DATABRICKS_KEY")
 LOOKAHEAD = 15
@@ -49,7 +50,7 @@ def retreive_last_60(device_id: str, ts: int) -> list:
             time as bin,
             deviceId,
             measure_value::double AS iaq
-        FROM "{DATABASE_NAME}"."{TABLE_NAME}"
+        FROM "{DATABASE_NAME}"."{SENSOR_TABLE_NAME}"
         WHERE 
             time between date_add('minute', -59, from_unixtime({ts})) and from_unixtime({ts+1})
             AND measure_name='iaq'
@@ -156,7 +157,7 @@ def handler(event, context):
 
         result = timestream_write.write_records(
             DatabaseName=DATABASE_NAME,
-            TableName=TABLE_NAME,
+            TableName=PREDICTIONS_TABLE_NAME,
             Records=records,
             CommonAttributes=common_attributes,
         )

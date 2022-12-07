@@ -40,7 +40,11 @@ class MyStack(TerraformStack):
 
         # dynamo = DynamoDB(self, "dynamo", isstream=False, tags=tags)
 
-        t = Timestream(self, "ts", "brewai_api", tags=tags)
+        ts = Timestream(self, "ts", tags=tags)
+        sensor_data_table, sensor_data_table_crud = ts.add_table(table_name="sensors")
+        predictions_data_table, predictions_data_table_crud = ts.add_table(
+            table_name="predictions"
+        )
 
         api = RESTApi(
             self,
@@ -72,17 +76,40 @@ class MyStack(TerraformStack):
 
         put_arn = api.add_endpoint(
             http="PUT",
-            policies=[t.crud_arn, policy.arn],
+            policies=[sensor_data_table_crud, policy.arn],
             filename="/root/unsw/FAIC-Project-AWS-Template/src/code/archived/timestream_put.zip",
-            environement={"DATABASE_NAME": t.db_name, "TABLE_NAME": t.table_name},
+            environement={"DATABASE_NAME": ts.db_name, "TABLE_NAME": sensor_data_table},
+            resource="data",
         )
 
         api.add_endpoint(
             http="GET",
-            policies=[t.crud_arn],
+            policies=[sensor_data_table_crud],
             filename="/root/unsw/FAIC-Project-AWS-Template/src/code/archived/timestream_get.zip",
-            environement={"DATABASE_NAME": t.db_name, "TABLE_NAME": t.table_name},
+            environement={"DATABASE_NAME": ts.db_name, "TABLE_NAME": sensor_data_table},
             timeout=20,
+            resource="data",
+        )
+
+        api.add_endpoint(
+            http="GET",
+            policies=[sensor_data_table_crud],
+            filename="/root/unsw/FAIC-Project-AWS-Template/src/code/archived/sensors_get.zip",
+            environement={"DATABASE_NAME": ts.db_name, "TABLE_NAME": sensor_data_table},
+            timeout=20,
+            resource="sensor",
+        )
+
+        api.add_endpoint(
+            http="GET",
+            policies=[predictions_data_table_crud],
+            filename="/root/unsw/FAIC-Project-AWS-Template/src/code/archived/timestream_get_pred.zip",
+            environement={
+                "DATABASE_NAME": ts.db_name,
+                "TABLE_NAME": predictions_data_table,
+            },
+            timeout=20,
+            resource="pred",
         )
 
         api.finalize()
@@ -108,15 +135,16 @@ class MyStack(TerraformStack):
             "make-prediction",
             name="make-prediction",
             filename="/root/unsw/FAIC-Project-AWS-Template/src/code/archived/make_prediction.zip",
-            policies=[t.crud_arn],
+            policies=[sensor_data_table_crud, predictions_data_table_crud],
             invoke_principal="lambda.amazonaws.com",
             invoke_from_arn=put_arn,
             memory_size=512,
             timeout=20,
             environement={
-                "DATABASE_NAME": t.db_name,
-                "TABLE_NAME": t.table_name,
-                "MODEL_ENDPOINT": "https://dbc-4e63b9e5-9d6d.cloud.databricks.com/model/iaq_forecast_simple_lstm/Staging/invocations",
+                "DATABASE_NAME": ts.db_name,
+                "SENSOR_TABLE": sensor_data_table,
+                "PREDICTIONS_TABLE": predictions_data_table,
+                "MODEL_ENDPOINT": "https://dbc-4e63b9e5-9d6d.cloud.databricks.com/model/iaq_forecast_ucb/Staging/invocations",
                 "DATABRICKS_KEY": os.getenv("DATABRICKS_KEY"),
                 "REGION": "ap-southeast-2",
             },

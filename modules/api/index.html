@@ -205,14 +205,14 @@
       
       
         <label class="md-nav__link" for="__nav_2">
-          Architectures
+          [WIP] Architectures
           <span class="md-nav__icon md-icon"></span>
         </label>
       
-      <nav class="md-nav" aria-label="Architectures" data-md-level="1">
+      <nav class="md-nav" aria-label="[WIP] Architectures" data-md-level="1">
         <label class="md-nav__title" for="__nav_2">
           <span class="md-nav__icon md-icon"></span>
-          Architectures
+          [WIP] Architectures
         </label>
         <ul class="md-nav__list" data-md-scrollfix>
           
@@ -584,6 +584,11 @@
 <td>Id of the predictions resource</td>
 </tr>
 <tr>
+<td>dim_resource_id</td>
+<td>str</td>
+<td>Id of the dimension resource</td>
+</tr>
+<tr>
 <td>api_key_value</td>
 <td>str</td>
 <td>API key secret value set during finalize()</td>
@@ -636,9 +641,9 @@
 <td>Lambda timeout. Default 5, must be lower than 30</td>
 </tr>
 <tr>
-<td>on_prediction</td>
-<td>bool</td>
-<td>Whether to attach the endpoint to the /predictions or /endpoint_name</td>
+<td>resource</td>
+<td>str</td>
+<td>data, pred or dim for the resource to attatch the endpoint to.</td>
 </tr>
 </tbody>
 </table>

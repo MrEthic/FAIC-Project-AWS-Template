@@ -205,14 +205,14 @@
       
       
         <label class="md-nav__link" for="__nav_2">
-          Architectures
+          [WIP] Architectures
           <span class="md-nav__icon md-icon"></span>
         </label>
       
-      <nav class="md-nav" aria-label="Architectures" data-md-level="1">
+      <nav class="md-nav" aria-label="[WIP] Architectures" data-md-level="1">
         <label class="md-nav__title" for="__nav_2">
           <span class="md-nav__icon md-icon"></span>
-          Architectures
+          [WIP] Architectures
         </label>
         <ul class="md-nav__list" data-md-scrollfix>
           
@@ -486,6 +486,13 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#upsert-in-table" class="md-nav__link">
+    Upsert in table
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -605,6 +612,13 @@
           <li class="md-nav__item">
   <a href="#query-a-table" class="md-nav__link">
     Query a table
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#upsert-in-table" class="md-nav__link">
+    Upsert in table
   </a>
   
 </li>
@@ -735,6 +749,40 @@ rows_list = [[next(iter(el.values())) for el in row] for row in rows]
 
 df = pd.DataFrame(rows_list, columns=columns_name)
 df.time = df.time.dt.tz_localize('UTC').dt.tz_convert('Australia/ACT')
+</code></pre>
+<h3 id="upsert-in-table">Upsert in table<a class="headerlink" href="#upsert-in-table" title="Permanent link">#</a></h3>
+<p>Upsert data in a Timestream table.</p>
+<pre><code class="language-python">import boto3
+import pandas
+
+session = boto3.Session(region_name=&quot;ap-southeast-2&quot;)
+ts_query = session.client(&quot;timestream-query&quot;)
+
+dimensions = [{&quot;Name&quot;: &quot;my_dimension&quot;, &quot;Value&quot;: &quot;A0&quot;}]
+
+common_attributes = {
+    &quot;Dimensions&quot;: dimensions,
+    &quot;MeasureValueType&quot;: &quot;DOUBLE&quot;,
+    &quot;Time&quot;: '1670536702',
+    &quot;TimeUnit&quot;: &quot;SECONDS&quot;,
+}
+
+t, h, p, iaq, co2, voc = get_data()
+records = [
+    {&quot;MeasureName&quot;: &quot;temperature&quot;, &quot;MeasureValue&quot;: t},
+    {&quot;MeasureName&quot;: &quot;humidity&quot;, &quot;MeasureValue&quot;: h},
+    {&quot;MeasureName&quot;: &quot;pressure&quot;, &quot;MeasureValue&quot;: p},
+    {&quot;MeasureName&quot;: &quot;iaq&quot;, &quot;MeasureValue&quot;: iaq},
+    {&quot;MeasureName&quot;: &quot;co2&quot;, &quot;MeasureValue&quot;: co2},
+    {&quot;MeasureName&quot;: &quot;voc&quot;, &quot;MeasureValue&quot;: voc},
+]
+
+result = timestream_client.write_records(
+    DatabaseName=DATABASE_NAME,
+    TableName=TABLE_NAME,
+    Records=records,
+    CommonAttributes=common_attributes,
+)
 </code></pre>
 
 

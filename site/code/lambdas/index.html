@@ -13,7 +13,7 @@
     
     
       
-        <title>Timestream - Project Template Documentation</title>
+        <title>Lambda Codes - Project Template Documentation</title>
       
     
     
@@ -62,7 +62,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#timestream-database" class="md-skip">
+        <a href="#lambda-python-code-examples" class="md-skip">
           Skip to content
         </a>
       
@@ -95,7 +95,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Timestream
+              Lambda Codes
             
           </span>
         </div>
@@ -205,14 +205,14 @@
       
       
         <label class="md-nav__link" for="__nav_2">
-          Architectures
+          [WIP] Architectures
           <span class="md-nav__icon md-icon"></span>
         </label>
       
-      <nav class="md-nav" aria-label="Architectures" data-md-level="1">
+      <nav class="md-nav" aria-label="[WIP] Architectures" data-md-level="1">
         <label class="md-nav__title" for="__nav_2">
           <span class="md-nav__icon md-icon"></span>
-          Architectures
+          [WIP] Architectures
         </label>
         <ul class="md-nav__list" data-md-scrollfix>
           
@@ -242,14 +242,12 @@
 
   
   
-    
-  
   
     
-    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--nested">
       
       
-        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_3" type="checkbox" id="__nav_3" checked>
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_3" type="checkbox" id="__nav_3" >
       
       
       
@@ -272,7 +270,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../api/" class="md-nav__link">
+      <a href="../../modules/api/" class="md-nav__link">
         API Gateway
       </a>
     </li>
@@ -286,7 +284,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../dynamo/" class="md-nav__link">
+      <a href="../../modules/dynamo/" class="md-nav__link">
         Dynamo Table
       </a>
     </li>
@@ -298,59 +296,11 @@
               
   
   
-    
   
-  
-    <li class="md-nav__item md-nav__item--active">
-      
-      <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
-      
-      
-        
-      
-      
-        <label class="md-nav__link md-nav__link--active" for="__toc">
-          Timestream
-          <span class="md-nav__icon md-icon"></span>
-        </label>
-      
-      <a href="./" class="md-nav__link md-nav__link--active">
+    <li class="md-nav__item">
+      <a href="../../modules/timestream/" class="md-nav__link">
         Timestream
       </a>
-      
-        
-
-<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
-  
-  
-  
-    
-  
-  
-    <label class="md-nav__title" for="__toc">
-      <span class="md-nav__icon md-icon"></span>
-      Table of contents
-    </label>
-    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#timestreamtimestream" class="md-nav__link">
-    timestream.Timestream
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#example" class="md-nav__link">
-    Example
-  </a>
-  
-</li>
-      
-    </ul>
-  
-</nav>
-      
     </li>
   
 
@@ -362,7 +312,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../lambdas/" class="md-nav__link">
+      <a href="../../modules/lambdas/" class="md-nav__link">
         Lambdas
       </a>
     </li>
@@ -382,12 +332,14 @@
 
   
   
+    
+  
   
     
-    <li class="md-nav__item md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
       
       
-        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_4" type="checkbox" id="__nav_4" >
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_4" type="checkbox" id="__nav_4" checked>
       
       
       
@@ -408,11 +360,73 @@
               
   
   
+    
   
-    <li class="md-nav__item">
-      <a href="../../code/lambdas/" class="md-nav__link">
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          Lambda Codes
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
         Lambda Codes
       </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#lambda-python-specificities" class="md-nav__link">
+    Lambda Python specificities
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#1-logging" class="md-nav__link">
+    1. Logging
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-traceback-and-errors" class="md-nav__link">
+    2. Traceback and errors
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-no-requests-package" class="md-nav__link">
+    3. No requests package
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
     </li>
   
 
@@ -424,7 +438,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../code/boto3/" class="md-nav__link">
+      <a href="../boto3/" class="md-nav__link">
         Boto3
       </a>
     </li>
@@ -465,15 +479,29 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#timestreamtimestream" class="md-nav__link">
-    timestream.Timestream
+  <a href="#lambda-python-specificities" class="md-nav__link">
+    Lambda Python specificities
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#example" class="md-nav__link">
-    Example
+  <a href="#1-logging" class="md-nav__link">
+    1. Logging
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-traceback-and-errors" class="md-nav__link">
+    2. Traceback and errors
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-no-requests-package" class="md-nav__link">
+    3. No requests package
   </a>
   
 </li>
@@ -493,75 +521,116 @@
                   
 
 
-<h1 id="timestream-database">Timestream database<a class="headerlink" href="#timestream-database" title="Permanent link">#</a></h1>
-<p>Use this module to create a timestream database and table for the project.</p>
-<h2 id="timestreamtimestream">timestream.Timestream<a class="headerlink" href="#timestreamtimestream" title="Permanent link">#</a></h2>
-<p>Class for the Timestream Database and Table.</p>
-<p><strong>Terraform resources:</strong></p>
-<ol>
-<li>TimestreamwriteDatabase: The database.</li>
-<li>TimestreamwriteTable: The table. Retention periods are set to 1 day of in-memory and 30 days of magnetic store.</li>
-<li>IamPolicy: Policy that grant permission for CRUD opperation on table.</li>
-</ol>
-<p><strong><em>Arguments</em></strong></p>
+<h1 id="lambda-python-code-examples">Lambda Python Code Examples<a class="headerlink" href="#lambda-python-code-examples" title="Permanent link">#</a></h1>
+<p>You can find all the examples source code files undes 'src/code'.</p>
+<p>All examples are based on the BrewAI IAQ project.</p>
+<p><strong><em>List of examples:</em></strong></p>
 <table>
 <thead>
 <tr>
-<th>Name</th>
-<th>Type</th>
+<th>Filename</th>
 <th>Description</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td>table_name</td>
-<td>str</td>
-<td>Name of the timestream table</td>
+<td>table_get.py</td>
+<td>Get endpoint for API Gateway that query items from dynamodb.</td>
 </tr>
 <tr>
-<td>tags</td>
-<td>dict</td>
-<td>Tags for all resource, must include a 'project' and 'env' key</td>
+<td>table_put.py</td>
+<td>Put endpoint for API Gateway that insert items in dynamodb.</td>
+</tr>
+<tr>
+<td>manage_conn.py</td>
+<td>Connections manager for websocket api.</td>
+</tr>
+<tr>
+<td>msg_conn.py</td>
+<td>Message sender for websocket api.</td>
+</tr>
+<tr>
+<td>timestream_get.py</td>
+<td>Get endpoint for API Gateway that query items from timestream.</td>
+</tr>
+<tr>
+<td>timestream_put.py</td>
+<td>Put endpoint for API Gateway that upsert items on timestream.</td>
+</tr>
+<tr>
+<td>brewai_fetch.py</td>
+<td>Scheduled lambdas that retreive latest data from api and insert in our own system.</td>
+</tr>
+<tr>
+<td>make_prediction.py</td>
+<td>Lambdas that generate predictions for a specific timestamp using databricks inference api.</td>
 </tr>
 </tbody>
 </table>
-<p><strong><em>Attributes</em></strong></p>
-<table>
-<thead>
-<tr>
-<th>Name</th>
-<th>Type</th>
-<th>Description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>crud_arn</td>
-<td>str</td>
-<td>ARN of the CRUD Policy</td>
-</tr>
-<tr>
-<td>db_name</td>
-<td>str</td>
-<td>Name of the project database</td>
-</tr>
-<tr>
-<td>table_name</td>
-<td>str</td>
-<td>Name of the project table</td>
-</tr>
-</tbody>
-</table>
-<h2 id="example">Example<a class="headerlink" href="#example" title="Permanent link">#</a></h2>
-<p>Create a timestream database and table:</p>
-<pre><code class="language-python">from src.timestream import Timestream
+<h2 id="lambda-python-specificities">Lambda Python specificities<a class="headerlink" href="#lambda-python-specificities" title="Permanent link">#</a></h2>
+<p>The python runtime environement is a litle bit special, here is some particularities.</p>
+<h2 id="1-logging">1. Logging<a class="headerlink" href="#1-logging" title="Permanent link">#</a></h2>
+<p>The default logger outputs logs in the Cloudwhatch Logs. Therefor, you can log this way.</p>
+<pre><code class="language-python">import logging
 
-tags = {
-    &quot;project&quot;: &quot;My Project&quot;,
-    &quot;env&quot;: &quot;dev&quot;
-}
+LOGGER = logging.getLogger()
+LOGGER.setLevel(logging.INFO)
 
-table = Timestream(self, &quot;timestram-id&quot;, &quot;my_table&quot;, tags=tags)
+def handler(event, context):
+    LOGGER.info(&quot;Some info&quot;)
+    LOGGER.warning(&quot;Some warning&quot;)
+    LOGGER.error(&quot;Some error&quot;)
+</code></pre>
+<h2 id="2-traceback-and-errors">2. Traceback and errors<a class="headerlink" href="#2-traceback-and-errors" title="Permanent link">#</a></h2>
+<p>Debuging a lambda function can be tricky. Logging the error won't print the traceback. Use the traceback package.</p>
+<pre><code class="language-python">import logging
+import traceback
+
+LOGGER = logging.getLogger()
+LOGGER.setLevel(logging.INFO)
+
+def handler(event, context):
+    try:
+        your_lambda_logic()
+        ...
+    except Exception as e:
+        LOGGER.error(f&quot;Something went wrong {e}&quot;)
+        traceback.print_exc()
+        return {&quot;statusCode&quot;: 500}
+</code></pre>
+<h2 id="3-no-requests-package">3. No requests package<a class="headerlink" href="#3-no-requests-package" title="Permanent link">#</a></h2>
+<p>The requests package is not available in AWS runtime. We can use urllib3 instead.</p>
+<pre><code class="language-python">import logging
+import traceback
+import urllib3
+import json
+
+LOGGER = logging.getLogger()
+LOGGER.setLevel(logging.INFO)
+
+def handler(event, context):
+    try:
+        http = urllib3.PoolManager()
+        get_response = http.request(
+            &quot;GET&quot;,
+            url=&quot;...&quot;,
+            headers={},
+        )
+        my_data = json.loads(get_response.data)
+
+        put_response = http.request(
+            &quot;PUT&quot;,
+            url=&quot;...&quot;,
+            headers={},
+            body=json.dumps(my_data),
+        )
+
+        if put_response.status != 200:
+            LOGGER.warning(&quot;Put request failed&quot;)
+        ...
+    except Exception as e:
+        LOGGER.error(f&quot;Something went wrong {e}&quot;)
+        traceback.print_exc()
 </code></pre>
 
 
@@ -583,7 +652,7 @@ table = Timestream(self, &quot;timestram-id&quot;, &quot;my_table&quot;, tags=ta
     <nav class="md-footer__inner md-grid" aria-label="Footer" >
       
         
-        <a href="../dynamo/" class="md-footer__link md-footer__link--prev" aria-label="Previous: Dynamo Table" rel="prev">
+        <a href="../../modules/lambdas/" class="md-footer__link md-footer__link--prev" aria-label="Previous: Lambdas" rel="prev">
           <div class="md-footer__button md-icon">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
           </div>
@@ -592,20 +661,20 @@ table = Timestream(self, &quot;timestram-id&quot;, &quot;my_table&quot;, tags=ta
               <span class="md-footer__direction">
                 Previous
               </span>
-              Dynamo Table
+              Lambdas
             </div>
           </div>
         </a>
       
       
         
-        <a href="../lambdas/" class="md-footer__link md-footer__link--next" aria-label="Next: Lambdas" rel="next">
+        <a href="../boto3/" class="md-footer__link md-footer__link--next" aria-label="Next: Boto3" rel="next">
           <div class="md-footer__title">
             <div class="md-ellipsis">
               <span class="md-footer__direction">
                 Next
               </span>
-              Lambdas
+              Boto3
             </div>
           </div>
           <div class="md-footer__button md-icon">

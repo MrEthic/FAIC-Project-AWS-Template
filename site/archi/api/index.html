@@ -13,7 +13,7 @@
     
     
       
-        <title>Boto3 - Project Template Documentation</title>
+        <title>API Gateways - Project Template Documentation</title>
       
     
     
@@ -62,7 +62,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#boto3" class="md-skip">
+        <a href="#api-gateway-architecture" class="md-skip">
           Skip to content
         </a>
       
@@ -95,7 +95,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Boto3
+              API Gateways
             
           </span>
         </div>
@@ -194,25 +194,27 @@
 
   
   
+    
+  
   
     
-    <li class="md-nav__item md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
       
       
-        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2" type="checkbox" id="__nav_2" >
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2" type="checkbox" id="__nav_2" checked>
       
       
       
       
         <label class="md-nav__link" for="__nav_2">
-          Architectures
+          [WIP] Architectures
           <span class="md-nav__icon md-icon"></span>
         </label>
       
-      <nav class="md-nav" aria-label="Architectures" data-md-level="1">
+      <nav class="md-nav" aria-label="[WIP] Architectures" data-md-level="1">
         <label class="md-nav__title" for="__nav_2">
           <span class="md-nav__icon md-icon"></span>
-          Architectures
+          [WIP] Architectures
         </label>
         <ul class="md-nav__list" data-md-scrollfix>
           
@@ -220,11 +222,21 @@
               
   
   
+    
   
-    <li class="md-nav__item">
-      <a href="../../archi/api/" class="md-nav__link">
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
         API Gateways
       </a>
+      
     </li>
   
 
@@ -332,14 +344,12 @@
 
   
   
-    
-  
   
     
-    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--nested">
       
       
-        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_4" type="checkbox" id="__nav_4" checked>
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_4" type="checkbox" id="__nav_4" >
       
       
       
@@ -362,7 +372,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../lambdas/" class="md-nav__link">
+      <a href="../../code/lambdas/" class="md-nav__link">
         Lambda Codes
       </a>
     </li>
@@ -374,127 +384,11 @@
               
   
   
-    
   
-  
-    <li class="md-nav__item md-nav__item--active">
-      
-      <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
-      
-      
-        
-      
-      
-        <label class="md-nav__link md-nav__link--active" for="__toc">
-          Boto3
-          <span class="md-nav__icon md-icon"></span>
-        </label>
-      
-      <a href="./" class="md-nav__link md-nav__link--active">
+    <li class="md-nav__item">
+      <a href="../../code/boto3/" class="md-nav__link">
         Boto3
       </a>
-      
-        
-
-<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
-  
-  
-  
-    
-  
-  
-    <label class="md-nav__title" for="__toc">
-      <span class="md-nav__icon md-icon"></span>
-      Table of contents
-    </label>
-    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#getting-started" class="md-nav__link">
-    Getting started
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#session-and-credentials" class="md-nav__link">
-    Session and credentials
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#boto3-in-lambdas" class="md-nav__link">
-    Boto3 in Lambdas
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#boto3-in-local" class="md-nav__link">
-    Boto3 in local
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#clients" class="md-nav__link">
-    Clients
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#dynamodb-examples" class="md-nav__link">
-    DynamoDB Examples
-  </a>
-  
-    <nav class="md-nav" aria-label="DynamoDB Examples">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#put-item" class="md-nav__link">
-    Put item
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#query-items" class="md-nav__link">
-    Query items
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#timestream" class="md-nav__link">
-    Timestream
-  </a>
-  
-    <nav class="md-nav" aria-label="Timestream">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#query-a-table" class="md-nav__link">
-    Query a table
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-    </ul>
-  
-</nav>
-      
     </li>
   
 
@@ -526,96 +420,6 @@
     
   
   
-    <label class="md-nav__title" for="__toc">
-      <span class="md-nav__icon md-icon"></span>
-      Table of contents
-    </label>
-    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#getting-started" class="md-nav__link">
-    Getting started
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#session-and-credentials" class="md-nav__link">
-    Session and credentials
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#boto3-in-lambdas" class="md-nav__link">
-    Boto3 in Lambdas
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#boto3-in-local" class="md-nav__link">
-    Boto3 in local
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#clients" class="md-nav__link">
-    Clients
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#dynamodb-examples" class="md-nav__link">
-    DynamoDB Examples
-  </a>
-  
-    <nav class="md-nav" aria-label="DynamoDB Examples">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#put-item" class="md-nav__link">
-    Put item
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#query-items" class="md-nav__link">
-    Query items
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#timestream" class="md-nav__link">
-    Timestream
-  </a>
-  
-    <nav class="md-nav" aria-label="Timestream">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#query-a-table" class="md-nav__link">
-    Query a table
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-    </ul>
-  
 </nav>
                   </div>
                 </div>
@@ -629,113 +433,21 @@
                   
 
 
-<h1 id="boto3">Boto3<a class="headerlink" href="#boto3" title="Permanent link">#</a></h1>
-<p>Boto3 is used to interact with resources on aws. It can be used to query data from databases, read logs, and even create resources. Boto3 is a wrapper that uses aws REST API.</p>
-<h2 id="getting-started">Getting started<a class="headerlink" href="#getting-started" title="Permanent link">#</a></h2>
-<p>First, you will need to install boto3 in your environement. Note that boto3 is natively available on lambda runtime.
-On your local machine, run <code>pip install boto3</code> or <code>conda install boto3</code>.</p>
-<p>Boto3 is very well documented online, simply search "boto3 <em>what you wan't to do</em>" on google and you will find documentation.</p>
-<h2 id="session-and-credentials">Session and credentials<a class="headerlink" href="#session-and-credentials" title="Permanent link">#</a></h2>
-<p>A boto3 Session is used to authenticate you. You can create a session using <code>boto3.Session()</code>. Boto3 will use default configuration to open the Session. It is a good practice to explicitly specify the region you want to intrect with in the Session: <code>boto3.Session(region_name='ap-southeast-3')</code>.</p>
-<h2 id="boto3-in-lambdas">Boto3 in Lambdas<a class="headerlink" href="#boto3-in-lambdas" title="Permanent link">#</a></h2>
-<p>Boto3 will inherite the lambda permission.</p>
-<h2 id="boto3-in-local">Boto3 in local<a class="headerlink" href="#boto3-in-local" title="Permanent link">#</a></h2>
-<p>Refere to the <a href="https://boto3.amazonaws.com/v1/documentation/api/latest/guide/credentials.html">boto3 documentation</a> for detailed explanation on boto3 credentials.</p>
-<p>The best practice would be to install the <a href="https://docs.aws.amazon.com/cli/latest/userguide/getting-started-install.html">aws cli</a> on you local machine and then configure profiles, access key and secret key id on the <code>~/./aws directory</code>.</p>
-<p>However, you can still specify your AWS access when opening a session:</p>
-<pre><code class="language-python">session = session.Session(
-    aws_access_key_id=ACCESS_KEY,
-    aws_secret_access_key=SECRET_KEY,
-)
-</code></pre>
-<p><strong><em>Extract from boto3 docs:</em></strong></p>
-<p>ACCESS_KEY, SECRET_KEY, and SESSION_TOKEN are variables that contain your access key, secret key, and optional session token. Note that the examples above do not have hard coded credentials. <strong>We do not recommend hard coding credentials in your source code</strong>.</p>
-<h2 id="clients">Clients<a class="headerlink" href="#clients" title="Permanent link">#</a></h2>
-<p>Boto3 clients are used to interact with specific AWS API, their is a lot of different client. To create one simply use:</p>
-<pre><code class="language-python">session = boto3.Session(region_name='ap-southeast-3')
-
-dynamodb_client = session.client(&quot;dynamodb&quot;)
-timestreamwrite_client = session.client(&quot;timestream-write&quot;)
-lambda_client = session.client(&quot;lambda&quot;)
-...
-</code></pre>
-<h2 id="dynamodb-examples">DynamoDB Examples<a class="headerlink" href="#dynamodb-examples" title="Permanent link">#</a></h2>
-<p>Assuming you have a working boto3 client.</p>
-<h3 id="put-item">Put item<a class="headerlink" href="#put-item" title="Permanent link">#</a></h3>
-<p>Insert an item in a dynamo table.</p>
-<pre><code class="language-python">import boto3
-
-session = boto3.Session(region_name='ap-southeast-3')
-dynamodb_client = session.client(&quot;dynamodb&quot;)
-
-dynamodb_response = dynamodb_client.put_item(
-    TableName=&quot;TABLE_NAME&quot;,
-    Item={
-        &quot;Key1&quot;: {&quot;S&quot;: &quot;Hello&quot;},
-        &quot;Key2&quot;: {&quot;N&quot;: &quot;2.154864584&quot;},
-        &quot;Key3&quot;: {&quot;L&quot;: [&quot;1&quot;, &quot;2&quot;, &quot;3&quot;]},
-    },
-)
-</code></pre>
-<h3 id="query-items">Query items<a class="headerlink" href="#query-items" title="Permanent link">#</a></h3>
-<p>Query (different from scaning) items in dynamodb. You can use boto3 resource to abstract some of the parsing logic.</p>
-<pre><code class="language-python">import boto3
-
-dynamodb = boto3.resource(&quot;dynamodb&quot;, region_name='ap-southeast-3')
-table = dynamodb.Table(&quot;TABLE_NAME&quot;)
-
-dynamodb_response = table.query(
-    KeyConditionExpression=Key(&quot;Key&quot;).eq(&quot;somethin&quot;)
-    &amp; Key(&quot;Timestamp&quot;).between(1, 60),
-)
-</code></pre>
-<p><strong>Boto3 dom't use float but Decimals.</strong> You may wan't to build a Encoder for this.</p>
-<pre><code class="language-python">import json
-from decimal import Decimal
-
-class DecimalEncoder(json.JSONEncoder):
-    def default(self, obj):
-        if isinstance(obj, Decimal):
-            return str(obj)
-        return json.JSONEncoder.default(self, obj)
-
-query_result = json.dumps(dynamodb_response, cls=DecimalEncoder)
-</code></pre>
-<h2 id="timestream">Timestream<a class="headerlink" href="#timestream" title="Permanent link">#</a></h2>
-<p>There is two timestream client, <code>timestream-write</code> and <code>timestream-query</code>.</p>
-<h3 id="query-a-table">Query a table<a class="headerlink" href="#query-a-table" title="Permanent link">#</a></h3>
-<p>Execute a SQL query and parse the results.</p>
-<pre><code class="language-python">import boto3
-import pandas
-
-session = boto3.Session(region_name=&quot;ap-southeast-2&quot;)
-ts_query = session.client(&quot;timestream-query&quot;)
-
-QUERY_1 = &quot;&quot;&quot;
-SELECT 
-  time,
-  deviceId,
-  measure_value::double AS temperature
-FROM &quot;ProjectTable-brewai-sensor-iaq-dev&quot;.&quot;brewai_api&quot;
-WHERE
-  measure_name='temperature'
-  AND time between ago(1h) and now()
-ORDER BY time DESC
-&quot;&quot;&quot;
-
-response = ts_query.query(
-    QueryString=QUERY_1
-)
-
-columns_name = [col['Name'] for col in response[&quot;ColumnInfo&quot;]]
-columns_type = [col[&quot;Type&quot;]['ScalarType'] for col in response[&quot;ColumnInfo&quot;]]
-
-rows = [row[&quot;Data&quot;] for row in response[&quot;Rows&quot;]]
-rows_list = [[next(iter(el.values())) for el in row] for row in rows]
-
-df = pd.DataFrame(rows_list, columns=columns_name)
-df.time = df.time.dt.tz_localize('UTC').dt.tz_convert('Australia/ACT')
-</code></pre>
+<h1 id="api-gateway-architecture">API Gateway Architecture<a class="headerlink" href="#api-gateway-architecture" title="Permanent link">#</a></h1>
+<p>This schema refers to the <a href="../../modules/api/">API Gateway module</a>.</p>
+<p>Important consideration:</p>
+<ul>
+<li>add_endpoint can be called multiple time duplicating corresponding resources.</li>
+<li>In practice, a lot of those 'resources' are just made to link function, methods and the api.</li>
+<li>Each endpoint generate:<ul>
+<li>One LambdaFunction</li>
+<li>One associated role</li>
+<li>One methode</li>
+<li>One log group</li>
+</ul>
+</li>
+</ul>
+<p><img alt="Screenshot" src="../../img/API.jpg" /></p>
 
 
 
@@ -756,7 +468,7 @@ df.time = df.time.dt.tz_localize('UTC').dt.tz_convert('Australia/ACT')
     <nav class="md-footer__inner md-grid" aria-label="Footer" >
       
         
-        <a href="../lambdas/" class="md-footer__link md-footer__link--prev" aria-label="Previous: Lambda Codes" rel="prev">
+        <a href="../.." class="md-footer__link md-footer__link--prev" aria-label="Previous: Home" rel="prev">
           <div class="md-footer__button md-icon">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
           </div>
@@ -765,11 +477,26 @@ df.time = df.time.dt.tz_localize('UTC').dt.tz_convert('Australia/ACT')
               <span class="md-footer__direction">
                 Previous
               </span>
-              Lambda Codes
+              Home
             </div>
           </div>
         </a>
       
+      
+        
+        <a href="../../modules/api/" class="md-footer__link md-footer__link--next" aria-label="Next: API Gateway" rel="next">
+          <div class="md-footer__title">
+            <div class="md-ellipsis">
+              <span class="md-footer__direction">
+                Next
+              </span>
+              API Gateway
+            </div>
+          </div>
+          <div class="md-footer__button md-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11H4Z"/></svg>
+          </div>
+        </a>
       
     </nav>
   

@@ -7,7 +7,7 @@ markdown_extensions:
 
 nav:
     - Home: 'index.md'
-    - Architectures:
+    - '[WIP] Architectures':
       - 'API Gateways': 'archi/api.md'
     - 'Terraform Modules':
       - 'API Gateway': 'modules/api.md'

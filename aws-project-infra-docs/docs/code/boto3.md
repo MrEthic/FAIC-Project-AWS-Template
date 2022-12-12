@@ -131,3 +131,38 @@ df = pd.DataFrame(rows_list, columns=columns_name)
 df.time = df.time.dt.tz_localize('UTC').dt.tz_convert('Australia/ACT')
 ```
 
+### Upsert in table
+Upsert data in a Timestream table.
+```python
+import boto3
+import pandas
+
+session = boto3.Session(region_name="ap-southeast-2")
+ts_query = session.client("timestream-query")
+
+dimensions = [{"Name": "my_dimension", "Value": "A0"}]
+
+common_attributes = {
+    "Dimensions": dimensions,
+    "MeasureValueType": "DOUBLE",
+    "Time": '1670536702',
+    "TimeUnit": "SECONDS",
+}
+
+t, h, p, iaq, co2, voc = get_data()
+records = [
+    {"MeasureName": "temperature", "MeasureValue": t},
+    {"MeasureName": "humidity", "MeasureValue": h},
+    {"MeasureName": "pressure", "MeasureValue": p},
+    {"MeasureName": "iaq", "MeasureValue": iaq},
+    {"MeasureName": "co2", "MeasureValue": co2},
+    {"MeasureName": "voc", "MeasureValue": voc},
+]
+
+result = timestream_client.write_records(
+    DatabaseName=DATABASE_NAME,
+    TableName=TABLE_NAME,
+    Records=records,
+    CommonAttributes=common_attributes,
+)
+```

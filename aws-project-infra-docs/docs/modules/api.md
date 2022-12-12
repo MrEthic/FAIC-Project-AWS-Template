@@ -26,6 +26,7 @@ Class for the API Gateway.
 | api_id | str | Unique id provided by AWS |
 | data_resource_id | str | Id of the user defined resource |
 | pred_resource_id | str | Id of the predictions resource |
+| dim_resource_id | str | Id of the dimension resource |
 | api_key_value | str | API key secret value set during finalize() |
 
 ## api.RESTApi.add_endpoint
@@ -47,7 +48,7 @@ Methode to attach Lambda endpoint to the API.
 | filename | str | Path to the zip file of the lambda |
 | environement | dict | Environement variables to pass to the function |
 | timeout | int | Lambda timeout. Default 5, must be lower than 30 |
-| on_prediction | bool | Whether to attach the endpoint to the /predictions or /endpoint_name |
+| resource | str | data, pred or dim for the resource to attatch the endpoint to. |
 
 **Returns: The function arn.**
 

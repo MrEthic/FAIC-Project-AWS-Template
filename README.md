@@ -4,7 +4,7 @@ Complete documentation available on [github pages](https://mrethic.github.io/FAI
 
 The Fintech Artificial Inteligence Consortium LAB is an UNSW vistual lab.
 
-This is a template for starting new project on the cloud.
+This is a template for starting new project on AWS.
 
 ## Important consideration
 
